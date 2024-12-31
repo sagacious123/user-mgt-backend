@@ -19,8 +19,6 @@ const verifyAdmin = async (req, res, next) => {
       return res.status(403).json({ message: "Access denied" });
     next();
   } catch (err) {
-    console.log(err);
-
     res.status(401).json({ message: "Invalid token" });
   }
 };

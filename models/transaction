@@ -1,0 +1,31 @@
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
+
+// Check if the model is already defined
+const Transaction =
+  mongoose.models.Transaction ||
+  mongoose.model(
+    "Transaction",
+    new Schema(
+      {
+        userId: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "User",
+          required: true,
+        },
+        senderAccount: { type: String, required: true },
+        amount: { type: Number, required: true },
+        beneficiaryAccount: { type: String, required: true },
+        beneficiaryName: { type: String, required: true },
+        beneficiaryBank: { type: String, required: true },
+        accountType: { type: String, required: true },
+        swiftIban: { type: String, required: true },
+        comment: { type: String },
+        reference: { type: String, required: true },
+        date: { type: Date, default: Date.now },
+      },
+      { timestamps: true }
+    )
+  );
+
+module.exports = Transaction;

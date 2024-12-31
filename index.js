@@ -43,6 +43,19 @@ const userSchema = new mongoose.Schema({
   role: { type: String, default: "user" },
 });
 
+// const transactionSchema = new mongoose.Schema({
+//   userId: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
+//   date: { type: Date, required: true },
+//   type: { type: String, required: true },
+//   amount: { type: Number, required: true },
+//   senderAccount: { type: String, required: true },
+//   receiverAccount: { type: String, required: true },
+//   reference: { type: String, required: true },
+//   comment: { type: String },
+// });
+
+// const Transaction = mongoose.model("Transaction", transactionSchema);
+
 // Hash password before saving
 userSchema.pre("save", async function (next) {
   if (this.isModified("password")) {
