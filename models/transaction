@@ -19,7 +19,7 @@ const Transaction =
         beneficiaryName: { type: String, required: true },
         beneficiaryBank: { type: String, required: true },
         accountType: { type: String, required: true },
-        swiftIban: { type: String, required: true },
+        swiftIban: { type: String },
         comment: { type: String },
         reference: { type: String, required: true },
         date: { type: Date, default: Date.now },
