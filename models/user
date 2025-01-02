@@ -1,6 +1,11 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
+// if (mongoose.models.User) {
+//   delete mongoose.models.User;
+//   delete mongoose.modelSchemas.User;
+// }
+
 // Check if the model is already defined
 const User =
   mongoose.models.User ||
@@ -26,9 +31,20 @@ const User =
           enum: ["admin", "user"],
           default: "user",
         },
+        accountNumber: {
+          type: String,
+          required: true,
+          unique: true,
+        },
+        pin: {
+          type: String,
+          required: true,
+        },
       },
       { timestamps: true }
     )
   );
+
+console.log(mongoose.models.User.schema.paths);
 
 module.exports = User;

@@ -53,6 +53,7 @@ router.post("/login", async (req, res) => {
       role: user.role,
       balance: user.balance,
       id: user._id,
+      accountNumber: user.accountNumber,
     });
   } catch (error) {
     res
@@ -63,6 +64,7 @@ router.post("/login", async (req, res) => {
 
 // Create a user
 router.post("/create-user", async (req, res) => {
+  console.log(req.body);
   try {
     // const p = "12345678";
 
@@ -77,10 +79,22 @@ router.post("/create-user", async (req, res) => {
     //   }
 
     //   hashPassword(p);
-    const { name, email, role, password } = req.body;
-    const newUser = new User({ name, email, role, password });
+    const { name, email, role, password, accountNumber, pin } = req.body;
+
+    const newUser = new User({
+      name,
+      email,
+      role,
+      password,
+      accountNumber,
+      pin,
+    });
+    console.log(req.body);
+
     await newUser.save();
-    res.status(201).json({ message: "User created successfully" });
+    res.status(201).json({
+      message: "User created successfully",
+    });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
@@ -112,6 +126,7 @@ router.put("/update-balance", verifyAdmin, async (req, res) => {
       role: user.role,
       balance: user.balance,
       id: user._id,
+      accountNumber: user.accountNumber,
     });
   } catch (err) {
     res.status(500).json({ error: err.message });

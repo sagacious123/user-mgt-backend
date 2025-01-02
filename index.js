@@ -34,6 +34,8 @@ mongoose.connection.once("open", () => {
   console.log("Connected to the database:", mongoose.connection.name);
 });
 
+console.log(mongoose.models.User);
+
 // User Schema
 const userSchema = new mongoose.Schema({
   name: { type: String, required: true },
@@ -41,6 +43,15 @@ const userSchema = new mongoose.Schema({
   password: { type: String, required: true },
   balance: { type: Number, default: 0 },
   role: { type: String, default: "user" },
+  accountNumber: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  pin: {
+    type: String,
+    required: true,
+  },
 });
 
 // const transactionSchema = new mongoose.Schema({
