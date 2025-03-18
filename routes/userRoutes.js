@@ -48,6 +48,7 @@ router.get("/:id", async (req, res) => {
       role: user.role,
       balance: user.balance,
       id: user._id,
+      transactions: user.transactions,
     });
   } catch (err) {
     res

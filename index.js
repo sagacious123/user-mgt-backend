@@ -52,6 +52,14 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  transactions: [
+    {
+      amount: Number,
+      type: { type: String, enum: ["credit", "debit"] },
+      date: { type: Date, default: Date.now },
+      description: String,
+    },
+  ],
 });
 
 // const transactionSchema = new mongoose.Schema({

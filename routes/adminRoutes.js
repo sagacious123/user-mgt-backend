@@ -133,4 +133,48 @@ router.put("/update-balance", verifyAdmin, async (req, res) => {
   }
 });
 
+// Debit or Credit User
+router.post("/transaction", verifyAdmin, async (req, res) => {
+  const { userId, amount, type, description } = req.body;
+
+  if (!userId || !amount || !type || !description) {
+    return res.status(400).json({ message: "All fields are required" });
+  }
+
+  if (!["credit", "debit"].includes(type)) {
+    return res.status(400).json({ message: "Invalid transaction type" });
+  }
+
+  try {
+    const user = await User.findById(userId);
+    if (!user) return res.status(404).json({ message: "User not found" });
+
+    if (type === "debit" && user.balance < amount) {
+      return res.status(400).json({ message: "Insufficient balance" });
+    }
+
+    // Update balance
+    user.balance =
+      type === "credit" ? user.balance + amount : user.balance - amount;
+
+    // Add transaction record
+    user.transactions.push({
+      amount,
+      type,
+      description,
+      date: new Date(),
+    });
+
+    await user.save();
+
+    res.status(200).json({
+      message: `User ${type}ed successfully`,
+      balance: user.balance,
+      transactions: user.transactions,
+    });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 module.exports = router;
