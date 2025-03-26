@@ -135,7 +135,7 @@ router.put("/update-balance", verifyAdmin, async (req, res) => {
 
 // Debit or Credit User
 router.post("/transaction", verifyAdmin, async (req, res) => {
-  const { userId, amount, type, description } = req.body;
+  const { userId, amount, type, description, date } = req.body;
 
   if (!userId || !amount || !type || !description) {
     return res.status(400).json({ message: "All fields are required" });
@@ -162,7 +162,7 @@ router.post("/transaction", verifyAdmin, async (req, res) => {
       amount,
       type,
       description,
-      date: new Date(),
+      date,
     });
 
     await user.save();

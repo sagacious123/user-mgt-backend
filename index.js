@@ -56,7 +56,7 @@ const userSchema = new mongoose.Schema({
     {
       amount: Number,
       type: { type: String, enum: ["credit", "debit"] },
-      date: { type: Date, default: Date.now },
+      date: { type: String },
       description: String,
     },
   ],

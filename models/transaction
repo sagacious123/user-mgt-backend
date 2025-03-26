@@ -22,7 +22,7 @@ const Transaction =
         swiftIban: { type: String, required: false },
         comment: { type: String },
         reference: { type: String, required: true },
-        date: { type: Date, default: Date.now },
+        date: { type: Date, required: true },
       },
       { timestamps: true }
     )
